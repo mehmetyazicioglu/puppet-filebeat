@@ -1,0 +1,15 @@
+{
+  "name": "mehmetyazicioglu-filebeat",
+  "version": "0.1.0",
+  "author": "mehmetyazicioglu",
+  "summary": "Module for ELK filebeat",
+  "license": "Apache-2.0",
+  "source": "git@github.com:mehmetyazicioglu/puppet-filebeat.git",
+  "project_page": "https://github.com/mehmetyazicioglu/puppet-filebeat.git",
+  "issues_url": "https://github.com/mehmetyazicioglu/puppet-filebeat.git/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
