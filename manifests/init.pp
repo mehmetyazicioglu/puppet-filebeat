@@ -41,8 +41,48 @@
 # ---------
 #
 # Copyright 2017 Your name here, unless otherwise noted.
-#
-class filebeat {
 
+class filebeat (
+  $package_file                = '',
+  $package_provider            = '',
+  $logstash_output_enabled     = false,
+  $logstash_output_hosts       = ['localhost:5044'],
+  $logstash_output_loadbalance = undef,
+  $logstash_output_index       = undef,
+  $self_log_to_syslog               = undef,
+  $self_log_to_files                = undef,
+  $self_log_selectors               = [],
+  $self_log_level                   = undef,
+  $self_log_path                    = undef,
+  $self_log_name                    = undef,
+  $self_log_rotateeverybytes        = undef,
+  $self_log_keepfiles               = undef) inherits ::filebeat::params {
+    
+  if ($logstash_output_loadbalance != undef) {
+    validate_bool($logstash_output_loadbalance)
+  }
+
+  validate_array($logstash_output_hosts)
+
+  if($package_file != ''){
+    $real_package_file = $package_file
+} else { 
+ $real_package_file = $::filebeat::params::default_package_file 
+ }
+
+
+  if($package_provider != ''){
+    $real_package_provider = $package_provider
+  } else {
+    $real_package_provider = $::filebeat::params::default_package_provider
+  }
+
+  class { '::filebeat::install': } ->
+  class { '::filebeat::config': } ~>
+  class { '::filebeat::service': } ->
+  Class['::filebeat']
+  
 
 }
+
+
